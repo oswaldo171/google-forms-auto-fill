@@ -35,7 +35,7 @@ This will generate a `index.js` script under the `dist` folder that you can run 
 ## Creating a `.bat` file
 - Create a new `.txt` file in the folder where `index.js` is located
 - Rename and change the extension of `*.txt` to `script.bat`
-- Edit the file for a text editor
+- Edit the file in a text editor
 - Wrtie `node index.js` and save the file
 
 ![bat](bat-creation.gif)
