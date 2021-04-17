@@ -4,11 +4,19 @@ const app = async () => {
   const formURL: string =
     "https://docs.google.com/forms/d/e/1FAIpQLSfYroBk6rCP2CbWbqJXhFrYupo25_VeFVEab-gy5_VtJ5fvgA/viewform";
 
-  const browser = await puppeteer.launch({
-    headless: false,
-    slowMo: 10,
-    devtools: true,
-  });
+  // Pass this as an object to puppeteer.launch() for debugging
+  //   {
+  //     headless: false,
+  //     slowMo: 10,
+  //     devtools: true,
+  //   }
+
+  const student = {
+    name: "Dubón Lémus Carlos Daniel",
+    id: "201943354",
+  };
+
+  const browser = await puppeteer.launch();
 
   const page = await browser.newPage();
 
@@ -22,8 +30,8 @@ const app = async () => {
     });
   });
 
-  await page.type(".puppeteer-input-0", "Carlos");
-  await page.type(".puppeteer-input-1", "Dubon prueba");
+  await page.type(".puppeteer-input-0", `${student.id}`);
+  await page.type(".puppeteer-input-1", `${student.name}`);
 
   await page.evaluate(() => {
     const button = document.querySelector(
