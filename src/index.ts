@@ -4,7 +4,12 @@ const app = async () => {
   const formURL: string =
     "https://docs.google.com/forms/d/e/1FAIpQLSfYroBk6rCP2CbWbqJXhFrYupo25_VeFVEab-gy5_VtJ5fvgA/viewform";
 
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: false,
+    slowMo: 10,
+    devtools: true,
+  });
+
   const page = await browser.newPage();
 
   await page.goto(formURL, { waitUntil: "networkidle2" });
@@ -17,20 +22,16 @@ const app = async () => {
     });
   });
 
-  await page.$eval(".puppeteer-input-0", (el) => {
-    (el as HTMLInputElement).value = "Carlos";
-  });
+  await page.type(".puppeteer-input-0", "Carlos");
+  await page.type(".puppeteer-input-1", "Dubon prueba");
 
-  await page.$eval(".puppeteer-input-1", (el) => {
-    (el as HTMLInputElement).value = "Dubon";
-  });
+  await page.evaluate(() => {
+    const button = document.querySelector(
+      ".appsMaterialWizButtonPaperbuttonLabel"
+    );
 
-  const myVal = await page.$eval(".puppeteer-input-0", (el) => {
-    const x: string = (el as HTMLInputElement).value;
-    return x;
+    (button as HTMLElement).click();
   });
-
-  console.log(myVal);
 
   debugger;
 
