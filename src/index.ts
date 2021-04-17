@@ -9,37 +9,28 @@ const app = async () => {
 
   await page.goto(formURL, { waitUntil: "networkidle2" });
 
-  const d = await page.$$eval(
-    ".quantumWizTextinputPaperinputInputArea",
-    (arr) => {
-      let inputElements: any = [];
+  await page.$$eval(".quantumWizTextinputPaperinputInputArea", (arr) => {
+    arr.forEach((e, i) => {
+      e.querySelector("input[type=text]")?.classList.add(
+        `puppeteer-input-${i}`
+      );
+    });
+  });
 
-      arr.forEach((e, i) => {
-        e.querySelector("input[type=text]")?.classList.add(
-          `puppeteer-input-${i}`
-        );
-      });
+  await page.$eval(".puppeteer-input-0", (el) => {
+    (el as HTMLInputElement).value = "Carlos";
+  });
 
-      return inputElements;
-    }
-  );
+  await page.$eval(".puppeteer-input-1", (el) => {
+    (el as HTMLInputElement).value = "Dubon";
+  });
 
-  console.log(d);
+  const myVal = await page.$eval(".puppeteer-input-0", (el) => {
+    const x: string = (el as HTMLInputElement).value;
+    return x;
+  });
 
-  const x = await page.$$eval(
-    ".quantumWizTextinputPaperinputInputArea",
-    (arr) => {
-      let inputElements: any = [];
-
-      arr.forEach((e) => {
-        inputElements.push(e.querySelector("input[type=text]")?.classList);
-      });
-
-      return inputElements;
-    }
-  );
-
-  console.log(x);
+  console.log(myVal);
 
   debugger;
 
