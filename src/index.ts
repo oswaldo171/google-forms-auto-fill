@@ -1,30 +1,49 @@
-// import request from "request";
-// import cheerio from "cheerio";
-
-// const formURL: string =
-//   "https://docs.google.com/forms/d/e/1FAIpQLSfYroBk6rCP2CbWbqJXhFrYupo25_VeFVEab-gy5_VtJ5fvgA/viewform";
-
-// request(formURL, (error, response, html) => {
-//   if (!error && response.statusCode == 200) {
-//     const $ = cheerio.load(html);
-
-//     let userInputClass: string = ".quantumWizTextinputPaperinputInputArea";
-
-//     $(userInputClass).each((i, el) => {
-//       const element = $(el);
-//       const inputEl = element.children("input");
-//       inputEl.attr("value", "Carlos");
-//     });
-
-//     const sendButton = $(".appsMaterialWizButtonPaperbuttonContent");
-
-//     setTimeout(()=>{
-//         $(".appsMaterialWizButtonPaperbuttonContent").trigger()
-//     },500);
-//   }
-// });
-
 import puppeteer from "puppeteer";
 
-const formURL: string =
-  "https://docs.google.com/forms/d/e/1FAIpQLSfYroBk6rCP2CbWbqJXhFrYupo25_VeFVEab-gy5_VtJ5fvgA/viewform";
+const app = async () => {
+  const formURL: string =
+    "https://docs.google.com/forms/d/e/1FAIpQLSfYroBk6rCP2CbWbqJXhFrYupo25_VeFVEab-gy5_VtJ5fvgA/viewform";
+
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  await page.goto(formURL, { waitUntil: "networkidle2" });
+
+  const d = await page.$$eval(
+    ".quantumWizTextinputPaperinputInputArea",
+    (arr) => {
+      let inputElements: any = [];
+
+      arr.forEach((e, i) => {
+        e.querySelector("input[type=text]")?.classList.add(
+          `puppeteer-input-${i}`
+        );
+      });
+
+      return inputElements;
+    }
+  );
+
+  console.log(d);
+
+  const x = await page.$$eval(
+    ".quantumWizTextinputPaperinputInputArea",
+    (arr) => {
+      let inputElements: any = [];
+
+      arr.forEach((e) => {
+        inputElements.push(e.querySelector("input[type=text]")?.classList);
+      });
+
+      return inputElements;
+    }
+  );
+
+  console.log(x);
+
+  debugger;
+
+  await browser.close();
+};
+
+app();
