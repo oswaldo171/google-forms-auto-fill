@@ -1,6 +1,6 @@
 # Google forms auto fill
 ## Description
-I have this online course where we have to fill a Google form for attendance records every day, and it has been really annoying to input the same data over and over. I’ve made a script that automatically fills in the Google form for me.
+I have this online course where we have to fill a Google form for attendance records every day, and it has been really annoying to input the same data over and over. I’ve made a script that automatically fills in the Google form for me and send it.
 
 ## Dependencies
 - Puppeteer 8.0.0
