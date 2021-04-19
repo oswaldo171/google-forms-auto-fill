@@ -39,3 +39,6 @@ This will generate a `index.js` script under the `dist` folder that you can run 
 - Wrtie `node index.js` and save the file
 
 ![bat](bat-creation.gif)
+
+# License
+[MIT]([https://link](https://github.com/carlos-dubon/google-forms-auto-fill/blob/main/LICENSE))
