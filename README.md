@@ -41,4 +41,4 @@ This will generate a `index.js` script under the `dist` folder that you can run 
 ![bat](bat-creation.gif)
 
 # License
-[MIT]([https://link](https://github.com/carlos-dubon/google-forms-auto-fill/blob/main/LICENSE))
+[MIT](https://github.com/carlos-dubon/google-forms-auto-fill/blob/main/LICENSE)
